@@ -8,7 +8,7 @@ import java.util.Queue;
 
 /**
  *
- * @author Helen HOLA HELEN COMO ESTAS TU
+ * @author H
  */
 public class GameTree {
 
