@@ -11,6 +11,6 @@ package com.espol.proyectoestruturadatos.model.game;
 public class Main {
     public static void main(String[] args){
         System.out.println("HOLA HELEN");
-        
+        // AMIGOS
     }
 }
