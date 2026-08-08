@@ -8,7 +8,7 @@ import java.util.Queue;
 
 /**
  *
- * @author H
+ * @author Hjhgygf
  */
 public class GameTree {
 
