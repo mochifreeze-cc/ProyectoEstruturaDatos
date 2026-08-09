@@ -5,6 +5,7 @@
 package com.espol.proyectoestruturadatos.model.game;
 
 import java.util.LinkedList;
+import java.util.List;
 
 // A CARGO: JEAN PINCAY 
 /*
@@ -16,7 +17,7 @@ import java.util.LinkedList;
 public class Board {
     // private final Integer rows = 3; // filas de tablero.
     // private final Integer columns = 3; // columnas del tablero.
-    public Box[] boxes = new Box[9]; // Matrix 3 x 3, osea el contenido del tablero.
+    public final Box[] boxes = new Box[9]; // Matrix 3 x 3, osea el contenido del tablero.
     public List<Subscriber> suscribers;  ///////////////////////////////////////////
     private Symbol winner; // Conocer el ganador
     private int lastMovement; // Ultima jugada que se realizo para llegar a ese estado.
@@ -38,23 +39,6 @@ public class Board {
             boxes[i] = new Box(board.boxes[i]);
         }
     }
-    
-    /* Este metodo no sirve por ahora 
-    // TAMBIEN SI ES QUE NO SE USA ELIMINAR LA INTERFACE BoxAction
-    public void map(BoxAction action){ // recorre todas las casillas para ejecutar una accion
-        for(int i = 0; i < boxes.length; i++){
-            Box box = boxes[i];
-            
-            int posX = i/3;
-            int posY = i%3;
-            
-            box.setPosX(posX);
-            box.setPoY(posY);
-            
-            action.execute(box);
-        }
-    }
-    */ 
     
     public void setSymbol(Symbol symbol, int arrayIndex){
         boxes[arrayIndex].setSymbol(symbol);
