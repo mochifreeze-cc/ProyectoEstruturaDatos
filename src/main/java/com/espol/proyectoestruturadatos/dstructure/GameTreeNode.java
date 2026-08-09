@@ -8,20 +8,21 @@ import com.espol.proyectoestruturadatos.model.game.Board;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author Helen
+/*
+ * @author Dylan Jeanpier Pincay Salazar
+ * @author Gabriel Cevallos
+ * @author Helen Cruz
  */
+
 public class GameTreeNode {
 
-    private Board board;
-    private int movement;
-    private int utility;
-    private int depth;
-    private boolean maximizing;
-
-    private GameTreeNode parent;
-    private List<GameTreeNode> children;
+    private Board board; // Tablero 
+    private int movement; // Movimiento
+    private int utility; // Utilidad
+    private int depth; // nivel
+    private boolean maximizing; // Max o Min 
+    private GameTreeNode parent; // Nodo Padre
+    private List<GameTreeNode> children; // Nodo Hijos
 
     public GameTreeNode(Board board) {
         this.board = board;
@@ -33,12 +34,7 @@ public class GameTreeNode {
         this.children = new LinkedList<>();
     }
 
-    public GameTreeNode(
-            Board board,
-            int movement,
-            int depth,
-            boolean maximizing) {
-
+    public GameTreeNode(Board board, int movement, int depth, boolean maximizing) {
         this.board = board;
         this.movement = movement;
         this.utility = 0;
