@@ -4,10 +4,22 @@
  */
 package com.espol.proyectoestruturadatos.model.game;
 
-/**
- *
- * @author Helen
+// A CARGO: JEAN PINCAY 
+/*
+ * @author Dylan Jeanpier Pincay Salazar
+ * @author Gabriel Cevallos
+ * @author Helen Cruz
  */
 public class Box {
+    private Symbol symbol;
+    public int posY;
+    public int posX;
     
+    public Box(){
+      
+    }
+    
+    public Box(Box box){
+        
+    }
 }
