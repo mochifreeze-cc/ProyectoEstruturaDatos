@@ -6,6 +6,7 @@ package com.espol.proyectoestruturadatos.model.game;
 
 import java.util.LinkedList;
 
+// A CARGO: JEAN PINCAY 
 /*
  * @author Dylan Jeanpier Pincay Salazar
  * @author Gabriel Cevallos
@@ -38,7 +39,39 @@ public class Board {
         }
     }
     
+    /* Este metodo no sirve por ahora 
+    // TAMBIEN SI ES QUE NO SE USA ELIMINAR LA INTERFACE BoxAction
+    public void map(BoxAction action){ // recorre todas las casillas para ejecutar una accion
+        for(int i = 0; i < boxes.length; i++){
+            Box box = boxes[i];
+            
+            int posX = i/3;
+            int posY = i%3;
+            
+            box.setPosX(posX);
+            box.setPoY(posY);
+            
+            action.execute(box);
+        }
+    }
+    */ 
     
+    public void setSymbol(Symbol symbol, int arrayIndex){
+        boxes[arrayIndex].setSymbol(symbol);
+        setLastMovement(arrayIndex);
+        
+        final boolean isWinner = this.isWinner(symbol);
+        final boolean isFull = this.isFull();
+       
+        if (isWinner){
+            this.winner = symbol;
+        }
+        
+        if (isWinner || isFull){
+            this.hasEnded = true;
+            this.notifySuscribers();
+        }
+    }
     
     
 }
