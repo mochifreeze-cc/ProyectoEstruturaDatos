@@ -1,13 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.espol.proyectoestruturadatos.model.player;
 
-/**
- *
- * @author Helen
- */
-public class Human {
-    
+import com.espol.proyectoestruturadatos.model.board.Symbol;
+
+public class Human extends Player {
+
+    public Human() {
+        super();
+    }
+
+    public Human(Symbol symbol) {
+        super(symbol);
+    }
 }
