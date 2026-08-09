@@ -11,9 +11,10 @@ import java.util.Queue;
  * @author Gabriel Cevallos
  * @author Helen Cruz
  */
+
 public class GameTree {
 
-    private GameTreeNode root;
+    private GameTreeNode root; 
 
     public GameTree(Board board) {
         root = new GameTreeNode(board);
@@ -35,21 +36,9 @@ public class GameTree {
         return root.isLeaf();
     }
 
-    public GameTreeNode addChild(
-            GameTreeNode parent,
-            Board board,
-            int movement,
-            boolean maximizing) {
-
-        GameTreeNode child = new GameTreeNode(
-                board,
-                movement,
-                parent.getDepth() + 1,
-                maximizing
-        );
-
+    public GameTreeNode addChild(GameTreeNode parent, Board board, int movement, boolean maximizing) {
+        GameTreeNode child = new GameTreeNode(board,movement, parent.getDepth() + 1, maximizing);
         parent.addChild(child);
-
         return child;
     }
 
@@ -71,10 +60,7 @@ public class GameTree {
             System.out.println("Nivel: " + node.getDepth());
             System.out.println("Movimiento: " + node.getMovement());
             System.out.println("Utilidad: " + node.getUtility());
-            System.out.println(
-                    "Tipo: " +
-                    (node.isMaximizing() ? "MAX" : "MIN")
-            );
+            System.out.println("Tipo: " +(node.isMaximizing() ? "MAX" : "MIN"));
 
             for (GameTreeNode child : node.getChildren()) {
                 queue.offer(child);
