@@ -37,6 +37,4 @@ public class Box {
     public String toString() {
         return symbol != null ? symbol + "": " ";
     }
-
-    
 }
