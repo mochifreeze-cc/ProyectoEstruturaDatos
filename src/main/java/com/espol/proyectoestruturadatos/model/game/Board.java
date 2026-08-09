@@ -4,10 +4,12 @@
  */
 package com.espol.proyectoestruturadatos.model.game;
 
-/**
- *
- * @author Helen
+/*
+ * @author Dylan Jeanpier Pincay Salazar
+ * @author Gabriel Cevallos
+ * @author Helen Cruz
  */
+
 public class Board {
     
 }
