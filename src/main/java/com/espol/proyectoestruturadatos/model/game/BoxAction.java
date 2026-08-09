@@ -4,6 +4,7 @@
  */
 package com.espol.proyectoestruturadatos.model.game;
 
+//  A CARGO: JEAN PINCAY
 /*
  * @author Dylan Jeanpier Pincay Salazar
  * @author Gabriel Cevallos
@@ -11,5 +12,5 @@ package com.espol.proyectoestruturadatos.model.game;
  */
 
 public interface BoxAction {
-    void execute(Box box); // Permite generar una accion 
+    void execute(Box box); // Permite generar una accion que se necesite
 }
