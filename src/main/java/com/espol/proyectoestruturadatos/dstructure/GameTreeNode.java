@@ -4,7 +4,7 @@
  */
 package com.espol.proyectoestruturadatos.dstructure;
 
-import com.espol.proyectoestruturadatos.model.game.Board;
+import com.espol.proyectoestruturadatos.model.board.Board;
 import java.util.LinkedList;
 import java.util.List;
 
