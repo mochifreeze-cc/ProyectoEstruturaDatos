@@ -39,6 +39,15 @@ public class Board {
             boxes[i] = new Box(board.boxes[i]);
         }
     }
+
+    public Symbol getWinner() {
+        return winner;
+    }
+
+    public int getLastMovement() {
+        return lastMovement;
+    }
+    
     
     public void setSymbol(Symbol symbol, int arrayIndex){
         boxes[arrayIndex].setSymbol(symbol);
