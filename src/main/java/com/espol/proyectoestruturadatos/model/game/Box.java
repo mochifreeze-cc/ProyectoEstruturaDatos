@@ -12,14 +12,31 @@ package com.espol.proyectoestruturadatos.model.game;
  */
 public class Box {
     private Symbol symbol;
-    public int posY;
-    public int posX;
     
     public Box(){
       
     }
     
     public Box(Box box){
-        
+        this.symbol = (box.symbol != null) ? new Symbol(box.symbol.getCharacter()) : null;
     }
+    
+    public Symbol getSymbol(){
+        return this.symbol;
+    }
+    
+    public void setSymbol(Symbol symbol){
+        this.symbol = symbol;
+    }
+    
+    public boolean isEmpty(){
+        return this.symbol == null;
+    }
+    
+    @Override
+    public String toString() {
+        return symbol != null ? symbol + "": " ";
+    }
+
+    
 }
