@@ -1,13 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.espol.proyectoestruturadatos.model.board.iterators;
+import com.espol.proyectoestruturadatos.model.board.Board;
+import com.espol.proyectoestruturadatos.model.board.Box;
+import java.util.Iterator;
 
 /**
  *
  * @author Helen
  */
-public class IteratorByRow {
-    
+
+
+public class IteratorByRow implements Iterator<Box[]> {
+
+    private Box[] boxes;
+    private int index;
+
+    public IteratorByRow(Board board) {
+        this.boxes = board.boxes;
+        this.index = 0;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return index < 3;
+    }
+
+    @Override
+    public Box[] next() {
+
+        Box[] row = new Box[3];
+
+        for (int i = 0; i < 3; i++) {
+            row[i] = boxes[index * 3 + i];
+        }
+
+        index++;
+
+        return row;
+    }
 }
