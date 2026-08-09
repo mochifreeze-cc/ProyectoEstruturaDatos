@@ -48,6 +48,71 @@ public class Board {
         return lastMovement;
     }
     
+    public boolean isEmpty(){
+        for(Box box: boxes){
+            if(!box.isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean isFull(){
+        for(Box box: boxes){
+            if(box.isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public Iterator<Box[]> rowIterator(){
+        return new IteratorByRow(this);
+    }
+    
+    public Iterator<Box[]> columnIterator(){
+        return new IteratorByColumn(this);
+    }
+    
+    public Iterator<Box[]> diagonalIterator(){
+        return new IteratorByDiagonal(this);
+    }
+    
+    public boolean isWinner(Symbol symbol){
+        Iterator<Box[]>[] iterators = new Iterator[]{this.rowItertor(), this.columnIterator(), this.diagonalIterator()}
+        for(Iterator<Box[]> it: iterators){
+            while(it.hasNext()){
+                Box[] subBoxes = it.next();
+                if(this.isWinner(symbol, subBoxes)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+   
+    private boolean isWinner(Symbol symbol, Box[] subBoxes){
+        int count = 0; // Contaremos cuantas casillas tienen el mismo simbolo que se esta buscando
+        for(Box box: subBoxes){
+            if(box.getSymbol() != null && box.getSymbol().equals(box)){
+                count++;
+            }
+        }
+        
+        
+        
+    }
+    
+    
+    private boolean isWinner(Symbol symbol, Box[] subBoxes){
+        int count = 0;
+        for (Box box: subBoxes){
+            if (box.getSymbol() != null && box.getSymbol().equals(symbol)){
+                count++;
+            }
+        }
+        return count == subBoxes.length;
+    }
     
     public void setSymbol(Symbol symbol, int arrayIndex){
         boxes[arrayIndex].setSymbol(symbol);
@@ -65,6 +130,6 @@ public class Board {
             this.notifySuscribers();
         }
     }
-    
+ 
     
 }
