@@ -1,13 +1,63 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
+import com.espol.proyectoestruturadatos.model.board.Symbol;
+
 /**
- *
- * @author Helen
+ * @author Gabriel Cevallos, Dylan Jeanpier Pincay Salazar, Helen Cruz
  */
 public class MainController {
-    
+
+    private ChooseController chooseController;
+    private BoardController boardController;
+
+    public MainController() {
+        this.chooseController = new ChooseController();
+    }
+
+    public void startNewGame(boolean isHumanX, boolean humanStarts) {
+        chooseController.setPreferences(isHumanX, humanStarts);
+        boardController = new BoardController(
+            chooseController.getHumanSymbol(),
+            chooseController.getBotSymbol(),
+            chooseController.isHumanStarts()
+        );
+    }
+
+    public ChooseController getChooseController() {
+        return chooseController;
+    }
+
+    public BoardController getBoardController() {
+        return boardController;
+    }
+
+    public void setBoardController(BoardController boardController) {
+        this.boardController = boardController;
+    }
+
+    public String getFinalResultMessage() {
+        if (boardController == null) return "";
+        Symbol winner = boardController.getWinner();
+        Symbol humanSymbol = chooseController.getHumanSymbol();
+        if (winner == null) {
+            return "¡Ha sido un Empate!";
+        } else if (winner.equals(humanSymbol)) {
+            return "¡Felicidades, has Ganado!";
+        } else {
+            return "Ha ganado la Computadora. ¡Suerte a la próxima!";
+        }
+    }
+
+    public String getFinalResultTitle() {
+        if (boardController == null) return "";
+        Symbol winner = boardController.getWinner();
+        Symbol humanSymbol = chooseController.getHumanSymbol();
+        if (winner == null) {
+            return "Empate";
+        } else if (winner.equals(humanSymbol)) {
+            return "¡Victoria!";
+        } else {
+            return "Derrota";
+        }
+    }
 }

@@ -1,132 +1,155 @@
-
 package com.espol.proyectoestruturadatos.model.board;
 
-import java.util.LinkedList;
+import com.espol.proyectoestruturadatos.model.board.iterators.IteratorByColumn;
+import com.espol.proyectoestruturadatos.model.board.iterators.IteratorByDiagonal;
+import com.espol.proyectoestruturadatos.model.board.iterators.IteratorByRow;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-// A CARGO: JEAN PINCAY 
-/*
- * @author Dylan Jeanpier Pincay Salazar
- * @author Gabriel Cevallos
- * @author Helen Cruz
+/**
+ * @author Gabriel Cevallos, Dylan Jeanpier Pincay Salazar, Helen Cruz
  */
-
 public class Board {
-    // private final Integer rows = 3; // filas de tablero.
-    // private final Integer columns = 3; // columnas del tablero.
-    public final Box[] boxes = new Box[9]; // Matrix 3 x 3, osea el contenido del tablero.
-    public List<Subscriber> suscribers;  ///////////////////////////////////////////
-    private Symbol winner; // Conocer el ganador
-    private int lastMovement; // Ultima jugada que se realizo para llegar a ese estado.
-    public boolean hasEnded; // Verifica si la partida a terminado.
-    public boolean choosen; ///////////////////////////////////////////////////////
-   
-    public Board(){
-        hasEnded = false;
-        suscribers = new LinkedList<>();
-        
-        for(int i = 0; i < boxes.length; i++){
+    public final Box[] boxes = new Box[9];
+    private Symbol winner;
+    public boolean hasEnded;
+
+    public Board() {
+        this.hasEnded = false;
+        this.winner = null;
+        for (int i = 0; i < boxes.length; i++) {
             boxes[i] = new Box();
         }
     }
-    
-    public Board(Board board){
-        this(); // llamamos el contructor anterior
-        for(int i = 0; i < boxes.length; i++ ){
-            boxes[i] = new Box(board.boxes[i]);
+
+    public Board(Board board) {
+        this();
+        for (int i = 0; i < boxes.length; i++) {
+            if (board.boxes[i] != null && !board.boxes[i].isEmpty()) {
+                this.boxes[i].setSymbol(board.boxes[i].getSymbol());
+            }
         }
+        this.winner = board.winner;
+        this.hasEnded = board.hasEnded;
     }
 
     public Symbol getWinner() {
         return winner;
     }
 
-    public int getLastMovement() {
-        return lastMovement;
+    public void setWinner(Symbol winner) {
+        this.winner = winner;
     }
-    
-    public boolean isEmpty(){
-        for(Box box: boxes){
-            if(!box.isEmpty()){
+
+    public boolean isFull() {
+        for (Box box : boxes) {
+            if (box.isEmpty()) {
                 return false;
             }
         }
         return true;
     }
-    
-    public boolean isFull(){
-        for(Box box: boxes){
-            if(box.isEmpty()){
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    public Iterator<Box[]> rowIterator(){
+
+    public Iterator<Box[]> rowIterator() {
         return new IteratorByRow(this);
     }
-    
-    public Iterator<Box[]> columnIterator(){
+
+    public Iterator<Box[]> columnIterator() {
         return new IteratorByColumn(this);
     }
-    
-    public Iterator<Box[]> diagonalIterator(){
+
+    public Iterator<Box[]> diagonalIterator() {
         return new IteratorByDiagonal(this);
     }
-    
-    public boolean isWinner(Symbol symbol){
-        Iterator<Box[]>[] iterators = new Iterator[]{this.rowIterator(), this.columnIterator(), this.diagonalIterator()}
-        for(Iterator<Box[]> it: iterators){
-            while(it.hasNext()){
+
+    public boolean isWinner(Symbol symbol) {
+        if (symbol == null) return false;
+        @SuppressWarnings("unchecked")
+        Iterator<Box[]>[] iterators = new Iterator[]{this.rowIterator(), this.columnIterator(), this.diagonalIterator()};
+        for (Iterator<Box[]> it : iterators) {
+            while (it.hasNext()) {
                 Box[] subBoxes = it.next();
-                if(this.isWinner(symbol, subBoxes)){
+                if (this.checkLineWinner(symbol, subBoxes)) {
                     return true;
                 }
             }
         }
         return false;
     }
-   
-    private boolean isWinner(Symbol symbol, Box[] subBoxes){
-        int count = 0; // Contaremos cuantas casillas tienen el mismo simbolo que se esta buscando
-        for(Box box: subBoxes){
-            if(box.getSymbol() != null && box.getSymbol().equals(box)){
-                count++;
-            }
-        }
-        
-        
-        
-    }
-    
-    
-    private boolean isWinner(Symbol symbol, Box[] subBoxes){
+
+    private boolean checkLineWinner(Symbol symbol, Box[] subBoxes) {
         int count = 0;
-        for (Box box: subBoxes){
-            if (box.getSymbol() != null && box.getSymbol().equals(symbol)){
+        for (Box box : subBoxes) {
+            if (box.getSymbol() != null && box.getSymbol().equals(symbol)) {
                 count++;
             }
         }
         return count == subBoxes.length;
     }
-    
-    public void setSymbol(Symbol symbol, int arrayIndex){
-        boxes[arrayIndex].setSymbol(symbol);
-        setLastMovement(arrayIndex);
-        
-        final boolean isWinner = this.isWinner(symbol);
-        final boolean isFull = this.isFull();
-       
-        if (isWinner){
-            this.winner = symbol;
-        }
-        
-        if (isWinner || isFull){
-            this.hasEnded = true;
-            this.notifySuscribers();
+
+    public void setSymbol(Symbol symbol, int arrayIndex) {
+        if (arrayIndex >= 0 && arrayIndex < 9 && boxes[arrayIndex].isEmpty()) {
+            boxes[arrayIndex].setSymbol(symbol);
+
+            final boolean winnerFound = this.isWinner(symbol);
+            final boolean full = this.isFull();
+
+            if (winnerFound) {
+                this.winner = symbol;
+            }
+
+            if (winnerFound || full) {
+                this.hasEnded = true;
+            }
         }
     }
- 
-    
+
+    public List<Integer> getAvailableMovements() {
+        List<Integer> moves = new ArrayList<>();
+        for (int i = 0; i < boxes.length; i++) {
+            if (boxes[i].isEmpty()) {
+                moves.add(i);
+            }
+        }
+        return moves;
+    }
+
+    public int calculateUtility(Symbol computerSymbol, Symbol humanSymbol) {
+        if (isWinner(computerSymbol)) {
+            return 1000;
+        }
+        if (isWinner(humanSymbol)) {
+            return -1000;
+        }
+
+        int pComputer = countAvailableLines(computerSymbol, humanSymbol);
+        int pHuman = countAvailableLines(humanSymbol, computerSymbol);
+
+        return pComputer - pHuman;
+    }
+
+    private int countAvailableLines(Symbol player, Symbol opponent) {
+        int count = 0;
+        @SuppressWarnings("unchecked")
+        Iterator<Box[]>[] iterators = new Iterator[]{this.rowIterator(), this.columnIterator(), this.diagonalIterator()};
+        for (Iterator<Box[]> it : iterators) {
+            while (it.hasNext()) {
+                Box[] subBoxes = it.next();
+                if (isLineAvailable(subBoxes, opponent)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private boolean isLineAvailable(Box[] subBoxes, Symbol opponent) {
+        for (Box box : subBoxes) {
+            if (box.getSymbol() != null && box.getSymbol().equals(opponent)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

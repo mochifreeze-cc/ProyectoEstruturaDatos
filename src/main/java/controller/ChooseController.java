@@ -1,13 +1,40 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
+import com.espol.proyectoestruturadatos.model.board.Symbol;
+
 /**
- *
- * @author Helen
+ * @author Gabriel Cevallos, Dylan Pincay, Helen Cruz
  */
 public class ChooseController {
-    
+
+    private Symbol humanSymbol;
+    private Symbol botSymbol;
+    private boolean humanStarts;
+
+    public ChooseController() {
+        setPreferences(true, true);
+    }
+
+    public void setPreferences(boolean isHumanX, boolean humanStarts) {
+        if (isHumanX) {
+            this.humanSymbol = Symbol.X;
+            this.botSymbol = Symbol.O;
+        } else {
+            this.humanSymbol = Symbol.O;
+            this.botSymbol = Symbol.X;
+        }
+        this.humanStarts = humanStarts;
+    }
+
+    public Symbol getHumanSymbol() {
+        return humanSymbol;
+    }
+
+    public Symbol getBotSymbol() {
+        return botSymbol;
+    }
+
+    public boolean isHumanStarts() {
+        return humanStarts;
+    }
 }

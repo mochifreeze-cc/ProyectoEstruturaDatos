@@ -1,16 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.espol.proyectoestruturadatos;
 
+import javafx.application.Application;
+
 /**
- *
- * @author Helen
+ * @author Gabriel Cevallos, Dylan Pincay, Helen Cruz
  */
 public class ProyectoEstruturaDatos {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Application.launch(ProyectoFX.class, args);
     }
 }

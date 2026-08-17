@@ -1,15 +1,12 @@
-
 package com.espol.proyectoestruturadatos.model.board.iterators;
+
 import com.espol.proyectoestruturadatos.model.board.Board;
 import com.espol.proyectoestruturadatos.model.board.Box;
 import java.util.Iterator;
 
 /**
- *
- * @author Helen
+ * @author Gabriel Cevallos, Dylan Pincay, Helen Cruz
  */
-
-
 public class IteratorByRow implements Iterator<Box[]> {
 
     private Box[] boxes;
@@ -27,7 +24,6 @@ public class IteratorByRow implements Iterator<Box[]> {
 
     @Override
     public Box[] next() {
-
         Box[] row = new Box[3];
 
         for (int i = 0; i < 3; i++) {
@@ -35,7 +31,6 @@ public class IteratorByRow implements Iterator<Box[]> {
         }
 
         index++;
-
         return row;
     }
 }

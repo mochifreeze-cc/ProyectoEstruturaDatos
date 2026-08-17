@@ -1,22 +1,31 @@
-
 package com.espol.proyectoestruturadatos.model.board;
-
-// A CARGO: JEAN PINCAY 
 
 import java.util.Objects;
 
-/*
- * @author Dylan Jeanpier Pincay Salazar
- * @author Gabriel Cevallos
- * @author Helen Cruz
+/**
+ * @author Gabriel Cevallos, Dylan Jeanpier Pincay Salazar, Helen Cruz
  */
-
 public class Symbol {
     private Character character;
     private String color;
-    
-    public Symbol(Character character){
+
+    public static final Symbol X = new Symbol('X', "#1E88E5");
+    public static final Symbol O = new Symbol('O', "#E53935");
+
+    public Symbol(Character character) {
         this.character = character;
+        if (character != null && character == 'X') {
+            this.color = "#1E88E5";
+        } else if (character != null && character == 'O') {
+            this.color = "#E53935";
+        } else {
+            this.color = "#000000";
+        }
+    }
+
+    public Symbol(Character character, String color) {
+        this.character = character;
+        this.color = color;
     }
 
     public Character getCharacter() {
@@ -27,34 +36,21 @@ public class Symbol {
         return color;
     }
 
-    public void setCharacter(Character character) {
-        this.character = character;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        final Symbol other = (Symbol) obj;
+        return Objects.equals(this.character, other.character);
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-    
     @Override
-    public boolean equals(Object obj){
-        if(this == obj){
-            return true;
-        }
-        
-        if(obj == null){
-            return false;
-        }
-        
-        if(getClass() != obj.getClass()){ // Los objetos son de la misma clase
-            return false;
-        }
-        
-        final Symbol other = (Symbol) obj;
-        return Objects.equals(this.character, other.character); // Si ambos simbolos son iguales
+    public int hashCode() {
+        return Objects.hash(character);
     }
-    
+
     @Override
     public String toString() {
-        return character + "";
+        return character != null ? character + "" : "";
     }
 }
